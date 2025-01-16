@@ -5,20 +5,19 @@
 import pytest
 
 
-from python_email import python_email
+from src.python_email.python_email import emailNotifications
 
 
 @pytest.fixture
-def response():
-    """Sample pytest fixture.
+def test_email_parameters():
+    return emailNotifications(from_email="alexanderdan.pratama94@gmail.com",
+                              to_email=["adpratama@esriindonesia.co.id"],
+                              password="wlmq exck gner aksz",
+                              subject="TEST PYTHON EMAIL",
+                              message="Hello World")
 
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
+def test_send_email_tls(test_email_parameters):
+    assert test_email_parameters.send_email_smtp_tls()
 
-
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+def test_send_email(test_email_parameters):
+    assert test_email_parameters.send_email_smtp_ssl()
