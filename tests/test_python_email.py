@@ -14,10 +14,13 @@ def test_email_parameters():
                               to_email=["adpratama@esriindonesia.co.id"],
                               password="wlmq exck gner aksz",
                               subject="TEST PYTHON EMAIL",
-                              message="Hello World")
+                            #   message="Hello World"
+                              )
 
 def test_send_email_tls(test_email_parameters):
-    assert test_email_parameters.send_email_smtp_tls()
+    test_email_parameters.send_email_smtp_tls("Hello using tls")
+    assert test_email_parameters.status_code == 200 
 
-def test_send_email(test_email_parameters):
-    assert test_email_parameters.send_email_smtp_ssl()
+def test_send_email_ssl(test_email_parameters):
+    test_email_parameters.send_email_smtp_ssl("Hello using ssl")
+    assert test_email_parameters.status_code == 200
